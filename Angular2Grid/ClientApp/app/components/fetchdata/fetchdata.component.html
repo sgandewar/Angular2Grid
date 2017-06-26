@@ -1,0 +1,40 @@
+<h1>Gift Order Using Kendo Grid for Angular 2</h1>
+
+<p *ngIf="!forecasts"><em>Loading...</em></p>
+
+<!--<table class='table' *ngIf="forecasts">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Temp. (C)</th>
+            <th>Temp. (F)</th>
+            <th>Summary</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let forecast of forecasts">
+            <td>{{ forecast.dateFormatted }}</td>
+            <td>{{ forecast.temperatureC }}</td>
+            <td>{{ forecast.temperatureF }}</td>
+            <td>{{ forecast.summary }}</td>
+        </tr>
+    </tbody>
+</table>-->
+
+<kendo-grid [data]="gridView" [pageSize]="pageSize"  [pageable]="true"  [skip]="skip" [sortable]="{
+            allowUnsort: allowUnsort,
+            mode: multiple ? 'multiple' : 'single'
+            }"
+          [sort]="sort"
+          (sortChange)="sortChange($event)"
+          (pageChange)="pageChange($event)"
+        >
+    <kendo-grid-column title="Auto Funding Period" field="autoOrderedDate"></kendo-grid-column>
+    <kendo-grid-column title="Ordered Date" field="orderedDate"></kendo-grid-column>
+    <kendo-grid-column title="Gift Item" field="giftItem"></kendo-grid-column>
+    
+    
+
+</kendo-grid>
+
+
