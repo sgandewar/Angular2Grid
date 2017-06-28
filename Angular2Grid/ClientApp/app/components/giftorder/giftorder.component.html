@@ -1,31 +1,33 @@
 <div class="view-documents-wrap">
-    <div class="view-docs-table-wrap">
-        <h3 class="content-heading">Gift Orders Using custom HTML Table.</h3>
-        <div class="view-docs table-responsive">
+    <h3 class="content-heading">Gift Orders Using custom HTML Table.</h3>
+    <div class="view-docs-table-wrap">        
+        <div class="view-docs table table-responsive">
             <table class="table docs-table">
                 <thead>
                     <tr>
                         <th class="doc-name">
                             Auto Funding Period&nbsp;
-                            <span *ngIf="sortBy === 'autoOrderedDate' && sortOrder === 'desc'" (click)='sortGiftOrders("autoOrderedDate", "asc" )' class="sort-down"></span>
-                            <span *ngIf="sortBy === 'autoOrderedDate' && sortOrder === 'asc'" (click)='sortGiftOrders("autoOrderedDate", "desc")' class="sort-up"></span>
-                            <span *ngIf="sortBy !== 'autoOrderedDate'" (click)='sortGiftOrders("autoOrderedDate", "desc")' class="sort"></span>
+                            <span *ngIf="sortBy === 'autoOrderedDate' && sortOrder === 'desc'" (click)='sortGiftOrders("autoOrderedDate", "asc" )'><i class="fa fa-sort-asc fa-lg" aria-hidden="true"></i></span>
+                            <span *ngIf="sortBy === 'autoOrderedDate' && sortOrder === 'asc'" (click)='sortGiftOrders("autoOrderedDate", "desc")'><i class="fa fa-sort-desc fa-lg" aria-hidden="true"></i></span>
+                            <span *ngIf="sortBy !== 'autoOrderedDate'" (click)='sortGiftOrders("autoOrderedDate", "desc")'><i class="fa fa-sort fa-lg" aria-hidden="true"></i></span>
                         </th>
+                        <!-- <th class="doc-name">
+                            Auto Funding Period&nbsp;
+                            <span *ngIf="sortBy === 'autoOrderedDate' && sortOrder === 'desc'" (click)='sortGiftOrders("autoOrderedDate", "asc" )' class="sort-down"><i class="fa fa-sort-asc fa-lg" aria-hidden="true"></i></span>
+                            <span *ngIf="sortBy === 'autoOrderedDate' && sortOrder === 'asc'" (click)='sortGiftOrders("autoOrderedDate", "desc")' class="sort-up"><i class="fa fa-sort-desc" aria-hidden="true"></i></span>
+                            <span *ngIf="sortBy !== 'autoOrderedDate'" (click)='sortGiftOrders("autoOrderedDate", "desc")' class="sort"><i class="fa fa-sort" aria-hidden="true"></i></span>
+                        </th>-->
                         <th class="upload-date">
                             Orderd date&nbsp;
-                            <span *ngIf="sortBy === 'last_update_datetime' && sortOrder === 'desc'" (click)='sortGiftOrders("last_update_datetime", "asc" )'
-                                  class="sort-down"></span>
-                            <span *ngIf="sortBy === 'last_update_datetime' && sortOrder === 'asc'" (click)='sortGiftOrders("last_update_datetime", "desc")'
-                                  class="sort-up"></span>
-                            <span *ngIf="sortBy !== 'last_update_datetime'" (click)='sortGiftOrders("last_update_datetime", "desc")' class="sort"></span>
+                            <span *ngIf="sortBy === 'last_update_datetime' && sortOrder === 'desc'" (click)='sortGiftOrders("last_update_datetime", "asc" )'><i class="fa fa-sort-asc fa-lg" aria-hidden="true"></i></span>
+                            <span *ngIf="sortBy === 'last_update_datetime' && sortOrder === 'asc'" (click)='sortGiftOrders("last_update_datetime", "desc")'><i class="fa fa-sort-desc fa-lg" aria-hidden="true"></i></span>
+                            <span *ngIf="sortBy !== 'last_update_datetime'" (click)='sortGiftOrders("last_update_datetime", "desc")' class=""><i class="fa fa-sort fa-lg" aria-hidden="true"></i></span>
                         </th>
                         <th class="doc-name">
                             Gift Item&nbsp;
-                            <span *ngIf="sortBy === 'giftItem' && sortOrder === 'desc'" (click)='sortGiftOrders("giftItem", "asc" )'
-                                  class="sort-down"></span>
-                            <span *ngIf="sortBy === 'giftItem' && sortOrder === 'asc'" (click)='sortGiftOrders("giftItem", "desc")'
-                                  class="sort-up"></span>
-                            <span *ngIf="sortBy !== 'giftItem'" (click)='sortGiftOrders("giftItem", "desc")' class="sort"></span>
+                            <span *ngIf="sortBy === 'giftItem' && sortOrder === 'desc'" (click)='sortGiftOrders("giftItem", "asc" )'><i class="fa fa-sort-asc fa-lg" aria-hidden="true"></i></span>
+                            <span *ngIf="sortBy === 'giftItem' && sortOrder === 'asc'" (click)='sortGiftOrders("giftItem", "desc")'><i class="fa fa-sort-desc fa-lg" aria-hidden="true"></i></span>
+                            <span *ngIf="sortBy !== 'giftItem'" (click)='sortGiftOrders("giftItem", "desc")' class=""><i class="fa fa-sort fa-lg" aria-hidden="true"></i></span>
                         </th>
                     </tr>
                 </thead>
@@ -36,27 +38,33 @@
                 </tr>
             </table>
         </div>
+
+        <div class="pagination-holder">
+            <nav aria-label="navigation">
+                <ul aria-label="Page navigation example" *ngIf="pager.pages" class="pagination">
+                    <li [ngClass]="{disabled:pager.currentPage === 1}" class="page-item">
+                        <a (click)="setPage(1)" class="page-link">&laquo;</a>
+                    </li>
+                    <li [ngClass]="{disabled:pager.currentPage === 1}" class="page-item">
+                        <a (click)="setPage(pager.currentPage - 1)" class="page-link">Previous</a>
+                    </li>
+                    <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}" class="page-item">
+                        <a (click)="setPage(page)" class="page-link">{{page}}</a>
+                    </li>
+                    <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}" class="page-item">
+                        <a (click)="setPage(pager.currentPage + 1)" class="page-link">Next</a>
+                    </li>
+                    <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}" class="page-item">
+                        <a (click)="setPage(pager.totalPages)" class="page-link">&raquo;</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
     </div>
 
     <!-- pager -->
 
-    <ul *ngIf="pager.pages" class="pagination">
-        <li [ngClass]="{disabled:pager.currentPage === 1}">
-            <a (click)="setPage(1)">First</a>
-        </li>
-        <li [ngClass]="{disabled:pager.currentPage === 1}">
-            <a (click)="setPage(pager.currentPage - 1)">Previous</a>
-        </li>
-        <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
-            <a (click)="setPage(page)">{{page}}</a>
-        </li>
-        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
-            <a (click)="setPage(pager.currentPage + 1)">Next</a>
-        </li>
-        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
-            <a (click)="setPage(pager.totalPages)">Last</a>
-        </li>
-    </ul>
+
 </div>
 
 
